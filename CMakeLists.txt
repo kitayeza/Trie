@@ -3,6 +3,6 @@ project(Tree)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(Tree main.cpp Trie.h)
+add_executable(Tree Trie.h test1.cpp)
 
 add_subdirectory(googletest)
