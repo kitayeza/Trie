@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <optional>
 #ifndef TREE_TRIE_H
 #define TREE_TRIE_H
 
@@ -40,6 +41,7 @@ namespace nm
     class Trie {
 
         std::unique_ptr<Node<T>> root;
+        Node<T>* find(const std::string& str) const noexcept;
 
 
     public:
@@ -50,8 +52,8 @@ namespace nm
         Trie& operator=(const Trie&) = delete;
 
         void insert(const std::string& str, const T& data) noexcept;
-        Node<T>* find(const std::string& str) const noexcept;
         void startsWith(const std::string& str,std::vector<std::string>& v) const noexcept;
+        std::optional<T> search(const std::string&) const noexcept;
 
     };
 
@@ -120,6 +122,15 @@ namespace nm
         }
 
     }
+
+    template<class T>
+    std::optional<T> Trie<T>::search(const std::string& str) const noexcept
+    {
+        const auto tmp =  find(str);
+        if(tmp == nullptr) return{};
+        return tmp->getData();
+    }
+
 
 }
 
